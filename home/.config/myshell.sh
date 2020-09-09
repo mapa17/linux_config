@@ -5,7 +5,7 @@ alias xrandr_work='xrandr --output DP1 --right-of eDP1 --mode 3840x2160'
 alias xrandr_reset='xrandr --output eDP1 --mode 2560x1600'
 alias batstat='cat /sys/class/power_supply/BAT0/capacity'
 alias selShot='sleep 2; scrot '/tmp/screenshot-%F:%T.png' -s'
-alias zsh_settings="vim ${ZSH}/mystuff.zsh"
+alias zsh_settings="vim ~/.config/myshell.sh"
 alias view='sxiv'
 alias code='code --disable-gpu'
 
@@ -69,5 +69,21 @@ gip (){
 	SELECTED=$(echo "${MACHINES}" | tail +2 | awk '{ print $1 }' | dmenu)
 	IP=$(echo "${MACHINES}" | grep ${SELECTED} | awk '{ print $5 }')
 	echo "${SELECTED} ${IP}"	
+}
+
+gstart (){
+	MACHINES=$(gcloud compute instances list | grep TERMINATED)
+	SELECTED=$(echo "${MACHINES}" | tail +2 | awk '{ print $1 }' | dmenu)
+	ZONE=$(echo "${MACHINES}" | grep ${SELECTED} | awk '{ print $2 }')
+	echo "Starting ${SELECTED} in zone ${ZONE} ..."
+	gcloud compute instances start ${SELECTED} --zone=${ZONE}
+}
+
+gstop (){
+	MACHINES=$(gcloud compute instances list | grep RUNNING)
+	SELECTED=$(echo "${MACHINES}" | tail +2 | awk '{ print $1 }' | dmenu)
+	ZONE=$(echo "${MACHINES}" | grep ${SELECTED} | awk '{ print $2 }')
+	echo "Stopping ${SELECTED} in zone ${ZONE} ..."
+	gcloud compute instances stop ${SELECTED} --zone=${ZONE}
 }
 
