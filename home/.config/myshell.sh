@@ -8,6 +8,8 @@ alias selShot='sleep 2; scrot '/tmp/screenshot-%F:%T.png' -s'
 alias zsh_settings="vim ~/.config/myshell.sh"
 alias view='sxiv'
 alias code='code --disable-gpu'
+alias lt='ls -hartl'
+alias reset_time='sudo ntpd -qg && sudo hwclock --systohc'
 
 brightUp () {
 	current=$(((`cat /sys/class/backlight/intel_backlight/brightness` * 10) / `cat /sys/class/backlight/intel_backlight/max_brightness`))
