@@ -1,0 +1,16 @@
+auracle-git
+dnslookup-git
+dropbox
+fmui-git
+inxi
+lf
+libinput-gestures
+libxft-bgra-git
+md5
+nncmpp-git
+onedrive-abraunegg
+pulseaudio-git
+ttf-symbola
+visidata
+xuserrun-git
+yay
