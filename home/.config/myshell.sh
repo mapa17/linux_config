@@ -4,12 +4,37 @@ export PATH=$HOME/.config/dwmblocks:$PATH
 alias xrandr_work='xrandr --output DP1 --right-of eDP1 --mode 3840x2160'
 alias xrandr_reset='xrandr --output eDP1 --mode 2560x1600'
 alias batstat='cat /sys/class/power_supply/BAT0/capacity'
-alias selShot='sleep 2; scrot '/tmp/screenshot-%F:%T.png' -s'
+#alias selShot='sleep 2; scrot '/tmp/screenshot-%F:%T.png' -s'
 alias zsh_settings="vim ~/.config/myshell.sh"
 alias view='sxiv'
 alias code='code --disable-gpu'
 alias lt='ls -hartl'
 alias reset_time='sudo ntpd -qg && sudo hwclock --systohc'
+alias n='nnn -c'
+
+# nnn variables
+export NNN_PLUG='p:preview-tabbed'
+
+## Enable settings for nuke
+export GUI=1
+export EDITOR=vim
+export PAGER="bat --paging=always"
+export NNN_OPENER="/home/manuel.pasieka/.config/nnn/plugins/nuke"
+export TERM=st
+export NNN_FIFO="/tmp/nnn.fifo"
+
+# dwm fix for pycharm
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+selShot () {
+	if [ -z "$1" ]
+	  then
+		PREFIX='screenshot'
+	  else
+		PREFIX=$1
+	fi	
+	scrot "/tmp/${PREFIX}-%F:%T.png" -s
+}
 
 brightUp () {
 	current=$(((`cat /sys/class/backlight/intel_backlight/brightness` * 10) / `cat /sys/class/backlight/intel_backlight/max_brightness`))
@@ -89,3 +114,14 @@ gstop (){
 	gcloud compute instances stop ${SELECTED} --zone=${ZONE}
 }
 
+winstart() {
+	echo "Starting Windows 10 ..."
+	VBoxHeadless -s Win10 &
+	echo "Trying rdp connection ..."
+	sleep 5
+	#xfreerdp /size:3840x2160 /v:127.0.0.1
+
+	# Get the resolution of the last active monitor
+	RESOLUTION=$(xrandr --listactivemonitors  | awk -F '[ /x]' '{print $4 "x" $6}' | tail -n1)
+	xfreerdp /size:${RESOLUTION} /v:127.0.0.1
+}

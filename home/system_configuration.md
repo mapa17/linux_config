@@ -12,9 +12,18 @@ pacman -S --needed - < ~/compile/linux_config/home/pkglist.txt
 yay -S --needed --noconfirm $(< ~/compile/linux_config/home/pkglist.txt)
 ```
 
+```
+sudo systemctl enable NetworkManager.service
+```
+
 ** cron job for wallpaper switching **
 ```
-echo "*/3 * * * * env DISPLAY=:0 /usr/bin/feh --recursive --bg-max --randomize  /data/OneDrive/Imagenes/Arte/" >> /var/spool/cron/manuel.pasieka
+fcrontab -e
+
+# Add
+"*/3 * * * * env DISPLAY=:0 /usr/bin/feh --recursive --bg-max --randomize  /home/manuel.pasieka/OneDrive/Imagenes/Arte/"
+
+sudo systemctl enable fcron.service
 ```
 
 ** Add udev rules for backlight modifications **
