@@ -1,6 +1,6 @@
 # Enable powerline: https://wiki.archlinux.org/index.php/Powerline
 powerline-daemon -q
-. /usr/lib/python3.8/site-packages/powerline/bindings/zsh/powerline.zsh
+. /usr/lib/python3.9/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

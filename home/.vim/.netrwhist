@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/manuel.pasieka/compile/linux_config/apps/dwm'
+let g:netrw_dirhist_6='/home/manuel.pasieka/WD/MR36-ContextProcessor/runs/06-equallength/encoding_FC-SC'
 let g:netrw_dirhist_5='/home/manuel.pasieka/DS/baseball/master2/runs/best'
 let g:netrw_dirhist_4='/home/manuel.pasieka/catVAE'
 let g:netrw_dirhist_3='/home/manuel.pasieka/compile/suckless/dwmblocks'

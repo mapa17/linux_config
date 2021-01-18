@@ -1,7 +1,9 @@
 # Enable dwblock scripts
 export PATH=$HOME/.config/dwmblocks:$PATH
+export PATH=$HOME/.config/bin:$PATH
 
-alias xrandr_work='xrandr --output DP1 --right-of eDP1 --mode 3840x2160'
+alias xrandr_right='xrandr --output DP1 --right-of eDP1 --mode 3840x2160'
+alias xrandr_left='xrandr --output DP1 --left-of eDP1 --mode 3840x2160'
 alias xrandr_reset='xrandr --output eDP1 --mode 2560x1600'
 alias batstat='cat /sys/class/power_supply/BAT0/capacity'
 #alias selShot='sleep 2; scrot '/tmp/screenshot-%F:%T.png' -s'
@@ -10,19 +12,24 @@ alias view='sxiv'
 alias code='code --disable-gpu'
 alias lt='ls -hartl'
 alias reset_time='sudo ntpd -qg && sudo hwclock --systohc'
-alias n='nnn -c'
+alias n='nnn -cdH -P p'
+alias down='shutdown -h now'
+alias mpd_speaker='pkill mpd ; sleep 0.5 ; mpd ~/.config/mpd/mpd-speakers.conf'
+alias mpd_headphones='pkill mpd ; sleep 0.5 ; mpd ~/.config/mpd/mpd-headphones.conf'
+#alias worklogs='code --disable-gpu ~/code/manuel-pasieka'
 
 # nnn variables
-export NNN_PLUG='p:preview-tabbed'
+export NNN_PLUG='p:preview-tabbed;f:fzd'
+export NNN_BMS='u:/home/manuel.pasieka;d:~/Downloads/;w:~/WD;c:~/code'
 
 ## Enable settings for nuke
 export GUI=1
 export EDITOR=vim
-export PAGER="bat --paging=always"
+#export PAGER="bat --paging=always"
 export NNN_OPENER="/home/manuel.pasieka/.config/nnn/plugins/nuke"
-export TERM=st
+export TERMINAL=st
 export NNN_FIFO="/tmp/nnn.fifo"
-
+export LC_COLLATE="C"
 # dwm fix for pycharm
 export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -114,14 +121,26 @@ gstop (){
 	gcloud compute instances stop ${SELECTED} --zone=${ZONE}
 }
 
-winstart() {
-	echo "Starting Windows 10 ..."
-	VBoxHeadless -s Win10 &
+VMStart() {
+	echo "Starting VM ${1} in headless mode ..."
+	VBoxHeadless -s ${1} &
 	echo "Trying rdp connection ..."
-	sleep 5
-	#xfreerdp /size:3840x2160 /v:127.0.0.1
+	sleep 3
 
 	# Get the resolution of the last active monitor
-	RESOLUTION=$(xrandr --listactivemonitors  | awk -F '[ /x]' '{print $4 "x" $6}' | tail -n1)
+	# Remove a bit of the higth and width to account for the window manger
+	RESOLUTION=$(xrandr --listactivemonitors  | awk -F '[ /x]' '{print $4-20 "x" $6-60}' | tail -n1)
 	xfreerdp /size:${RESOLUTION} /v:127.0.0.1
 }
+
+win10() {
+	VMStart Win10
+}
+
+kali() {
+	VMStart Kali-Linux-2020.4-vbox-amd64
+}
+
+
+
+
