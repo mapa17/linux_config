@@ -68,7 +68,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *mpc_next_cmd[]  = { "mpc", "next", NULL };
 static const char *mpc_seek0_cmd[]  = { "mpc", "seek", "0", NULL };
-static const char *mpc_pauseplay_cmd[]  = { "bash", "-c", "'mpc pause-if-playing || mpc play'", NULL };
+static const char *mpc_pauseplay_cmd[]  = { "bash", "-c", "mpc pause-if-playing || mpc play", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
