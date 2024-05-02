@@ -1,0 +1,24 @@
+#!/bin/sh
+# Displays unread mail count for my email addresses.
+
+# Keep retrying until internet is there
+while ! wget --spider -q http://example.com; do
+    sleep 10
+done
+
+tokens="token.json college_token.json work_token.json"
+icons=" : : "
+
+counts=""
+for token in $tokens; do
+    icon="${icons%%:*}"
+    icons="${icons#*:}"
+    i=$((i + 1))
+    count="$(qgmail --token "$XDG_CACHE_HOME/qgmail/$token" request \
+        users.labels.get me INBOX | jq -r '.messagesUnread // empty')"
+    counts="$counts${count:+"${counts:+" "}$icon$count"}"
+done
+
+[ -z "$counts" ] && exit
+. sb-theme
+display "$counts"
