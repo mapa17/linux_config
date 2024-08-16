@@ -65,8 +65,12 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	{ wifi_essid, " | Wifi: %s", "wlp0s20f3"},
-	{ ram_perc, " | Mem Used: %s%%", ""},
+	{ wifi_essid, " | Wifi: %s", "wlo1"},
+	{ netspeed_rx, " | Rx: %s,", "wlo1"},
+	{ netspeed_tx, " Tx: %s", "wlo1"},
+	{ run_command, " | GPU: %s%%", "nvidia-smi --query-gpu utilization.gpu --format=csv,noheader,nounits"},
+	{ run_command, " GPU_MEM: %s%%", "nvidia-smi --query-gpu utilization.memory --format=csv,noheader,nounits"},
+	{ ram_perc, " | Mem: %s%%", ""},
 	{ load_avg, " | Load: %s", ""},
 	{ datetime, " | %s",           "%F %T" },
 };

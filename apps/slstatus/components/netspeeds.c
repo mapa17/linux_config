@@ -29,6 +29,7 @@
 			return NULL;
 		}
 
+
 		return fmt_human((rxbytes - oldrxbytes) * 1000 / interval,
 		                 1024);
 	}
